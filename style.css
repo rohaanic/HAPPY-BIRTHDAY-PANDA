@@ -1,0 +1,43 @@
+body {
+    background-color: #ffe4e1; /* Halka pink background /
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding-top: 50px;
+}
+
+.hidden {
+    display: none; / Jo cheezein abhi nahi dikhani, unko chupa deta hai /
+}
+
+/ Greeting aur button ka style /
+#greeting-container h1 {
+    color: #ff69b4; / Hot pink text /
+    font-size: 3em;
+}
+
+#start-btn {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    background-color: #ffb6c1; / Light pink button /
+    border: none;
+    border-radius: 8px;
+}
+
+/ Video ka style /
+#surprise-video {
+    max-width: 90%;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+/ Cake ka style /
+#cake-container {
+    cursor: pointer;
+    padding-top: 30px;
+}
+
+#birthday-cake {
+    width: 300px; / Cake ki size */
+}
