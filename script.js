@@ -1,38 +1,55 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Get elements (added checks to prevent errors if elements don't exist)
     const greeting = document.getElementById('greeting-container');
     const videoContainer = document.getElementById('video-container');
     const cakeContainer = document.getElementById('cake-container');
     const video = document.getElementById('surprise-video');
     const startButton = document.getElementById('start-btn');
 
-    //  1. Button Click Par Video Start 
-    startButton.onclick = () => {
-        greeting.classList.add('hidden'); // Greeting chupa do
-        videoContainer.classList.remove('hidden'); // Video dikhao
-        video.play(); // Video chalao
-    };
+    // Ensure elements exist before proceeding
+    if (!greeting || !videoContainer || !cakeContainer || !video || !startButton) {
+        console.error('One or more required elements are missing from the DOM.');
+        return;
+    }
 
-    //  2. Video End Par Cake Dikhao 
-    video.onended = () => {
-        videoContainer.classList.add('hidden'); // Video chupa do
-        cakeContainer.classList.remove('hidden'); // Cake dikhao
-    };
+    // 1. Button click to start video
+    startButton.addEventListener('click', () => {
+        greeting.classList.add('hidden'); // Hide greeting
+        videoContainer.classList.remove('hidden'); // Show video
+        video.play().catch(error => console.error('Error playing video:', error)); // Play video with error handling
+    });
+
+    // 2. Video end to show cake
+    video.addEventListener('ended', () => {
+        videoContainer.classList.add('hidden'); // Hide video
+        cakeContainer.classList.remove('hidden'); // Show cake
+    });
 });
 
-//  3. Cake Click Par Surprise 
+// 3. Cake click for surprise
 function cutCake() {
     const cakeImage = document.getElementById('birthday-cake');
-    const yaySound = new Audio('yay-sound.mp3'); // Sound file chalane ke liye
+    const cakeContainer = document.getElementById('cake-container');
+    const yaySound = new Audio('yay-sound.mp3'); // Sound file
 
-    // Image badal do
-    cakeImage.src = 'cut-cake.png'; 
+    // Ensure elements exist
+    if (!cakeImage || !cakeContainer) {
+        console.error('Cake image or container not found.');
+        return;
+    }
 
-    // Sound bajao
-    yaySound.play();
+    // Change image
+    cakeImage.src = 'cut-cake.png';
 
-    // Text badal do
-    document.querySelector('#cake-container p').innerHTML = "YAY! Wish Granted! I love you so much! ❤️";
+    // Play sound with error handling
+    yaySound.play().catch(error => console.error('Error playing sound:', error));
 
-    // Double click rokne ke liye
-    document.getElementById('cake-container').onclick = null; 
+    // Change text (using querySelector for safety)
+    const textElement = document.querySelector('#cake-container p');
+    if (textElement) {
+        textElement.innerHTML = "YAY! Wish Granted! I love you so much! ❤️";
+    }
+
+    // Prevent further clicks
+    cakeContainer.onclick = null;
 }
